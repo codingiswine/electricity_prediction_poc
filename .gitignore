@@ -1,0 +1,67 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+*.ipynb_checkpoints
+
+# Python
+__pycache__/
+*/__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg
+*.egg-info/
+dist/
+build/
+
+# Virtual environments
+env/
+venv/
+ENV/
+.venv
+env.bak/
+venv.bak/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+
+# Temporary files
+*.tmp
+*.bak
+*~
+.cache/
+
+# Model artifacts and outputs (선택사항 - 필요시 주석 해제)
+# *.pkl
+# *.joblib
+# *.h5
+# *.ckpt
+
+# Environment variables (중요!)
+.env
+.env.local
+*.env
+
+# Logs
+*.log
+logs/
+
+# OS generated files
+Thumbs.db
+Desktop.ini
+
+# 실제 전력 사용량/기상 원본 데이터 및 예측 결과 수치 (민감 정보 — 그래프 이미지는 공개 유지)
+data/*.csv
+figures/*.csv
