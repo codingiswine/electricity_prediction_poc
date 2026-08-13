@@ -85,6 +85,10 @@ jupyter lab
 
 ## 📁 프로젝트 구조
 
+<div align="center">
+  <img src="architecture.svg" alt="전력 사용량 예측 전체 아키텍처" width="900">
+</div>
+
 ```
 전력사용량예측/
 ├── notebooks/
