@@ -1,6 +1,8 @@
 # Code Optimization Analysis: 최신electricity_usage_prediction.ipynb
 
 ## Executive Summary
+> **Note:** This document analyzes the notebook **as it was before refactoring** (25 code cells). The refactoring described here has since been applied — the current notebook has 13 cells and the extracted logic now lives in `src/utils.py`, `src/data_loader.py`, and `src/models.py`. Cell numbers below refer to the pre-refactoring version.
+
 This notebook contains **extensive code duplication** across 25 code cells, with repeated patterns for data loading, metric calculations, and model training. The code can be significantly optimized by extracting common patterns into reusable functions and modules.
 
 ---
