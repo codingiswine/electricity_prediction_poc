@@ -95,9 +95,9 @@ jupyter lab
 │   └── electricity_usage_prediction.ipynb   # 메인 분석 노트북
 ├── src/
 │   ├── __init__.py                          # 패키지 초기화
-│   ├── utils.py                             # 평가 지표 (MAPE, RMSE)
+│   ├── utils.py                             # 평가 지표(MAPE/RMSE/MAE) · CDD/HDD 계산
 │   ├── data_loader.py                       # 데이터 로딩 함수
-│   └── models.py                            # SARIMAX, Prophet, Grid Search
+│   └── models.py                            # SARIMAX, Prophet, Grid Search, 외생변수 생성
 ├── data/                                    # 비공개 (저장소 미포함)
 │   ├── monthly_data.csv                     # A동 전력 사용량 (2021-2024)
 │   ├── monthly_weather.csv                  # 월별 기상 데이터

@@ -22,8 +22,8 @@
 
   <!-- Preprocessing -->
   <rect x="150" y="185" width="500" height="70" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.6"/>
-  <text x="400" y="212" text-anchor="middle" font-size="13" font-weight="600" fill="#1e40af">전처리 (src/data_loader.py)</text>
-  <text x="400" y="234" text-anchor="middle" font-size="11.5" fill="#334155">데이터 병합 · CDD/HDD 외생변수 계산 · Train(2021-23)/Test(2024) 분할</text>
+  <text x="400" y="212" text-anchor="middle" font-size="13" font-weight="600" fill="#1e40af">전처리 (src/data_loader.py · src/models.py)</text>
+  <text x="400" y="234" text-anchor="middle" font-size="11.5" fill="#334155">데이터 병합 · Train(2021-23)/Test(2024) 분할 · CDD/HDD 외생변수 계산</text>
 
   <line x1="400" y1="255" x2="400" y2="285" stroke="#2563eb" stroke-width="1.8" marker-end="url(#ar)"/>
 
