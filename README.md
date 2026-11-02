@@ -98,6 +98,8 @@ jupyter lab
 │   ├── utils.py                             # 평가 지표(MAPE/RMSE/MAE) · CDD/HDD 계산
 │   ├── data_loader.py                       # 데이터 로딩 함수
 │   └── models.py                            # SARIMAX, Prophet, Grid Search, 외생변수 생성
+├── experiments/
+│   └── cdd_base_sweep.py                     # CDD/HDD 기준온도 사후 검증
 ├── data/                                    # 비공개 (저장소 미포함)
 │   ├── monthly_data.csv                     # A동 전력 사용량 (2021-2024)
 │   ├── monthly_weather.csv                  # 월별 기상 데이터
@@ -294,6 +296,29 @@ save_results_csv(results_df, 'sarimax_prediction_results.csv')
 - 계절성(월별 패턴)이 뚜렷하게 나타남
 - Grid Search를 통한 파라미터 최적화로 추가 개선 달성
 - 체계적 접근으로 **최종 MAPE 4.83% 달성**
+
+### 기준온도 선택 검증 (사후 측정)
+
+냉난방도일의 기준온도는 표준이 하나로 정해져 있지 않다. 한국가스공사 통계는
+냉방 24°C / 난방 18°C를 쓰고, 연구에 따라 냉방은 18~28°C 범위에서 고른다.
+이 저장소는 평균기온에 18°C 단일 기준을 쓴다.
+
+`docs/OPTIMIZATION_ANALYSIS.md`가 냉방 24°C(최고기온)를 권고하고 있어, Step 2
+설정으로 두 방식을 측정했다.
+
+| 기준온도 | MAPE | RMSE |
+|---|---|---|
+| CDD 18°C / HDD 18°C, 평균기온 — **현재** | **5.65%** | **25,959 MWh** |
+| CDD 24°C(최고) / HDD 18°C(최저) — docs 권고 | 5.91% | 27,685 MWh |
+
+현재 구현이 0.26%p 낮았다. 단 테스트 구간이 2024년 12개월 하나뿐이고 두 방식이
+기준온도와 입력 기온을 동시에 바꾸므로, 우열을 단정할 근거는 아니다.
+
+냉방 기준온도만 18 → 26°C로 올리면 MAPE가 4.62%(RMSE 21,372)까지 내려가 최종
+모델(4.83%)보다 낮다. **그러나 이는 2024년 테스트셋 오차를 보고 기준온도를 고르는
+것이므로 적용하지 않았다.** 기준온도를 조정하려면 검증 구간을 따로 떼야 한다.
+
+재현: `python -m experiments.cdd_base_sweep` (Step 2 재현값 5.65%를 assert로 검사)
 
 ### 비즈니스 임팩트
 - **과다/과소 구입 방지**: 정확한 예측으로 에너지 구입 비용 최적화

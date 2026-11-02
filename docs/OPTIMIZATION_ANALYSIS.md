@@ -203,6 +203,11 @@ def calculate_lag_features(df, col, lags=[1]):
     return pd.concat([df[col].shift(i).rename(f'{col}_lag{i}') for i in lags], axis=1)
 ```
 
+> **측정 결과 (사후):** 위 `base_cool=24.0`(최고기온) 권고는 Step 2 설정에서
+> MAPE 5.91%로, 실제 구현(평균기온 18°C 단일 기준) 5.65%보다 높았다. 기준온도는
+> 표준이 하나로 정해져 있지 않으므로 권고를 따르지 않았다. 재현은
+> `python -m experiments.cdd_base_sweep`, 상세는 README "기준온도 선택 검증".
+
 **Impact:** Eliminates ~25 lines of duplicated feature code
 
 ---
