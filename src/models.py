@@ -5,9 +5,10 @@ SARIMAX, Prophet 등 시계열 예측 모델 관련 함수들을 제공합니다
 """
 
 import pandas as pd
-import numpy as np
 from statsmodels.tsa.statespace.sarimax import SARIMAX
 import warnings
+
+from .utils import calculate_cdd_hdd
 
 warnings.filterwarnings('ignore')
 
@@ -171,10 +172,8 @@ def calculate_exog_features(df, temp_col='avg_max_temp', min_temp_col='avg_min_t
     elif temp_col in df.columns:
         df['avg_temp'] = df[temp_col]
 
-    # CDD/HDD 계산 (기준 온도 18°C)
-    base_temp = 18
-    df['CDD'] = np.maximum(0, df['avg_temp'] - base_temp)
-    df['HDD'] = np.maximum(0, base_temp - df['avg_temp'])
+    # CDD/HDD 계산 (기준 온도 18°C) — 정의는 src/utils.py 한 곳에만 둔다
+    df['CDD'], df['HDD'] = calculate_cdd_hdd(df['avg_temp'])
 
     # Lag 변수 (이전 달 전력 사용량)
     if 'value' in df.columns:
