@@ -69,14 +69,14 @@
   <!-- Output -->
   <rect x="150" y="450" width="500" height="80" rx="8" fill="#dbeafe" stroke="#2563eb" stroke-width="1.6"/>
   <text x="400" y="478" text-anchor="middle" font-size="13" font-weight="700" fill="#1e3a8a">최종 모델: SARIMAX + Grid Search</text>
-  <text x="400" y="500" text-anchor="middle" font-size="12" fill="#1e3a8a">MAPE 4.83% · RMSE 22,386</text>
+  <text x="400" y="500" text-anchor="middle" font-size="12" fill="#1e3a8a">MAPE 4.83% · RMSE 22,386 (개발 당시 기록값)</text>
   <text x="400" y="518" text-anchor="middle" font-size="10.5" fill="#334155">베이스라인 SARIMA(0,1,1)×(0,1,1,12) 대비 약 50% 오차 감소</text>
 
   <line x1="400" y1="530" x2="400" y2="565" stroke="#16a34a" stroke-width="1.8" marker-end="url(#ar)"/>
 
   <rect x="150" y="565" width="500" height="60" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
-  <text x="400" y="600" text-anchor="middle" font-size="12.5" fill="#15803d" font-weight="600">비즈니스 효과: 에너지 구입 비용 약 5~10% 절감 가능성</text>
+  <text x="400" y="600" text-anchor="middle" font-size="12.5" fill="#15803d" font-weight="600">비즈니스 효과: 절감액은 단가·계약 조건 미확보로 미산출</text>
 
   <!-- Data source footnote -->
-  <text x="650" y="660" text-anchor="middle" font-size="10.5" fill="#94a3b8">※ 실제 자치구 전력 사용 데이터로 개발·검증. 공개 저장소는 보안상 동일 파이프라인을 재현하는 예제 데이터를 사용.</text>
+  <text x="650" y="660" text-anchor="middle" font-size="10.5" fill="#94a3b8">※ 실제 자치구 전력 사용 데이터로 개발·검증. 데이터는 공개 저장소에 미포함.</text>
 </svg>

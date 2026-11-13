@@ -1,6 +1,8 @@
 # 서울시 자치구 전력 사용량 예측 프로젝트
 
-![SARIMAX 예측 결과](전력사용량예측.png)
+![초기 SARIMA 예측 (3단계 개선 이전)](전력사용량예측.png)
+
+*초기 SARIMA 예측 (3단계 개선 이전)*
 
 ## 📌 프로젝트 개요
 
@@ -45,7 +47,7 @@
 
 ```bash
 git clone <repository-url>
-cd 전력사용량예측
+cd electricity_prediction_poc
 ```
 
 ### 2. 가상환경 생성 (선택)
@@ -90,7 +92,7 @@ jupyter lab
 </div>
 
 ```
-전력사용량예측/
+electricity_prediction_poc/
 ├── notebooks/
 │   └── electricity_usage_prediction.ipynb   # 메인 분석 노트북
 ├── src/
@@ -156,8 +158,8 @@ test_clean = test_df.dropna()
 results = sarimax_grid_search(
     endog=train_clean['value'],
     exog=train_clean[['CDD', 'HDD']],
-    pdq_list=[(0,1,0), (1,1,0), (1,1,1)],
-    seasonal_pdq_list=[(0,1,0), (1,1,0), (1,1,1)],
+    pdq_list=[(0,1,0), (1,1,0), (0,1,1), (1,1,1)],
+    seasonal_pdq_list=[(0,1,0), (1,1,0), (0,1,1), (1,1,1)],
     seasonal_period=12
 )
 
@@ -201,8 +203,8 @@ save_results_csv(results_df, 'sarimax_prediction_results.csv')
 ### 주요 특징 변수
 - **CDD (Cooling Degree Days)**: 냉방도일 - 여름철 냉방 수요 반영
 - **HDD (Heating Degree Days)**: 난방도일 - 겨울철 난방 수요 반영
-- **Lag 변수**: 이전 달 전력 사용량
-- **제곱항 & 계절 상호작용**: 비선형 관계 모델링
+- **Lag 변수**: 이전 달 전력 사용량 — 생성은 하지만 현재 모델에는 사용하지 않음 (exog는 CDD/HDD만)
+- **제곱항 & 계절 상호작용**: 비선형 관계 모델링 — 생성은 하지만 현재 모델에는 사용하지 않음 (exog는 CDD/HDD만)
 
 ### 개발 환경
 - Python 3.8+
@@ -277,7 +279,7 @@ save_results_csv(results_df, 'sarimax_prediction_results.csv')
 **Step 3: Grid Search 최적화**
 - pdq와 seasonal_pdq 조합을 체계적으로 탐색
 - AIC 기준 최적 파라미터 선정
-- 결과: MAPE **4.83%** (0.82%p 추가 개선)
+- 결과: MAPE **4.83%** (0.82%p 추가 개선)¹
 
 ### 🎯 최종 성능 지표 (2024년 테스트 데이터)
 
@@ -285,17 +287,19 @@ save_results_csv(results_df, 'sarimax_prediction_results.csv')
 |------|------|------|------|------|
 | Step 1 | 기본 SARIMA | 9.72% | 41,341 MWh | - |
 | Step 2 | + CDD/HDD | 5.65% | 25,959 MWh | ▼ 4.07%p |
-| Step 3 | + Grid Search | **4.83%** | **22,386 MWh** | ▼ 0.82%p |
+| Step 3 | + Grid Search | **4.83%**¹ | **22,386 MWh**¹ | ▼ 0.82%p |
 
-> ✅ **최종 MAPE 4.83%는 매우 우수한 예측 정확도**를 의미합니다. (일반적으로 MAPE 10% 이하면 "매우 정확")
+¹ 4.83%는 개발 당시 기록값, 현재 코드 실행 시 4.85% / 22,444 (위 모델 선정 안내 참고)
+
+> ✅ **최종 MAPE 4.83%¹는 매우 우수한 예측 정확도**를 의미합니다. (일반적으로 MAPE 10% 이하면 "매우 정확")
 >
-> 📊 **전체 개선 효과**: 9.72% → 4.83% (4.90%p 개선, 약 50% 정확도 향상)
+> 📊 **전체 개선 효과**: 9.72% → 4.83% (4.90%p 개선, 약 50% 오차 감소)
 
 ### 주요 발견
 - **냉난방도일(CDD/HDD)**이 전력 사용량 예측의 핵심 변수 (Step 2에서 큰 폭 개선)
 - 계절성(월별 패턴)이 뚜렷하게 나타남
 - Grid Search를 통한 파라미터 최적화로 추가 개선 달성
-- 체계적 접근으로 **최종 MAPE 4.83% 달성**
+- 체계적 접근으로 **최종 MAPE 4.83% 달성**¹
 
 ### 기준온도 선택 검증 (사후 측정)
 
